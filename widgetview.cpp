@@ -7,7 +7,7 @@
 WidgetView::WidgetView(Agents ***map, unsigned *t, bool ***mapClan, QWidget *parent) : QWidget(parent)
 {
     _map = map;
-    _t = t;
+    _time = t;
     _mapClan = mapClan;
 }
 
@@ -28,7 +28,7 @@ void WidgetView::paintEvent(QPaintEvent *p)
     QPen pen(Qt::white,1);
     painter.setPen(pen);
 
-    ss << "Temps " << *_t;
+    ss << "Temps " << *_time;
     painter.drawText(this->width()/2-50,0,250,15,0,QString(ss.str().c_str()));
 
     QFont font;

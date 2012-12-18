@@ -22,7 +22,8 @@ SOURCES += \
     mainwindow.cpp \
     main.cpp \
     clanmember.cpp \
-    clan.cpp
+    clan.cpp \
+    commercial.cpp
 
 HEADERS  += \
     widgetview.h \
@@ -37,7 +38,8 @@ HEADERS  += \
     MersenneTwister.h \
     mainwindow.h \
     clanmember.h \
-    clan.h
+    clan.h \
+    commercial.h
 
 FORMS    +=
 

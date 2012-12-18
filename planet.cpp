@@ -7,6 +7,7 @@ Position Planet::posDepartClan[2] = { Position(HAUTEUR/2,LARGEUR/4) , Position(H
 
 Planet::Planet(QObject *parent) : QThread(parent)
 {
+    _commercial = new Commercial();
     _clan[0] = new Clan(posDepartClan[0],this,JEDI);
     _clan[1] = new Clan(posDepartClan[1],this,SITH);
     init_ressource();
@@ -71,7 +72,7 @@ bool ***Planet::getMapClan()
 void Planet::run()
 {
     _running = true;
-    for(_t = 0 ; _running ; ++_t)
+    for(_time = 0 ; _running ; ++_time)
     {
         QThread::msleep(200);
         /// Pour voir la map parcouru au total commenter les 2 lignes

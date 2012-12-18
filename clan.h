@@ -30,6 +30,7 @@ class Clan
         bool **_mapVisitee;
         unsigned _alliance;
         bool _promotedPhase;
+        unsigned _argentClan;
 
         // Les stratégies que le clan peut adopter
         static StrategieExploration _Se;

@@ -19,7 +19,7 @@ public slots :
 private :
     Agents ***_map;
     bool ***_mapClan;
-    unsigned *_t;
+    unsigned *_time;
 
     
 };

@@ -7,6 +7,7 @@ StrategieDefence Clan::_Sd;
 
 Clan::Clan(Position posDepart, Planet *planete, unsigned alliance)
 {
+    _argentClan = 0;
     _planet = planete;
     _posDepart = posDepart;
     _nbWarrior = 0;

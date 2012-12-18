@@ -2,6 +2,7 @@
 #define PLANETE_H
 
 #include "resource.h"
+#include "commercial.h"
 #include <QThread>
 #include <QObject>
 
@@ -20,8 +21,9 @@ class Planet : public QThread
         // Matrice contenant les agents et ressources de la map
         Agents ***_map;
         Clan *_clan[2];
+        Commercial *_commercial;
         bool _running;
-        unsigned _t;
+        unsigned _time;
 
         // Initialisation de la map
         void init_ressource();
@@ -37,9 +39,10 @@ class Planet : public QThread
         ~Planet();
         Agents*** getMap() {return _map;}
         Clan* getClan(unsigned clan) {return _clan[clan];}
+        Commercial* getCommercial() {return _commercial;}
         bool ***getMapClan();
         void naissance();
-        unsigned* getT() {return &_t;}
+        unsigned* getT() {return &_time;}
         void stop() {_running = false;}
         bool allResourceBusy();
 
