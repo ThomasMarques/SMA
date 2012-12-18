@@ -1,0 +1,99 @@
+#include "strategie.h"
+#include "clan.h"
+#include "pathfinder.h"
+#include "warrior.h"
+#include "MersenneTwister.h"
+
+void StrategieExploration::executeStrategie(Clan *clan)
+{
+    Pathfinder* tmpFind;
+    foreach(ClanMember* m, clan->getMembers())
+    {
+        tmpFind=(Pathfinder*)m;
+        if(tmpFind->getVector().x == 0)
+        {
+            Position tmp((genrand_int32()%10)-5,(genrand_int32()%10)-5);
+            if(tmp.x >= 0) tmp.x+=1;
+            if(tmp.y >= 0) tmp.y+=1;
+            tmpFind->setVector(tmp);
+        }
+    }
+}
+
+
+void StrategieDefence::executeStrategie(Clan *clan)
+{
+    Pathfinder* mPath;
+    if(!clan->isPromotedPhase())//cas ou défense normale
+    {
+        foreach(ClanMember* m, clan->getMembers())
+        {
+            switch(m->getType())
+            {
+            case pathfinder:
+                mPath=(Pathfinder*)m;
+                if(!mPath->isPromoted())
+                {
+                    // Pour les pathfinders restants il couvre la map de manière aléatoire
+                    if(mPath->getVector() == Position(0,0))
+                    {
+                        Position tmp((genrand_int32()%8)-5,(genrand_int32()%8)-5);
+                        if(tmp.x >= -1) tmp.x+=3;
+                        if(tmp.y >= -1) tmp.y+=3;
+                        mPath->setVector(tmp);
+                    }
+                }
+                else
+                {
+                    if(mPath->getObjectif() == mPath->getCurrent() && mPath->getTargetToMerged()->getCurrent() == mPath->getObjectif())
+                    {
+                        //alors delete 2 eclaireur a cette position et creer un warrior
+
+                        // L'objectif du guerrier est de rejoindre le camp (ressource du clan) le plus proche
+                        clan->addMember(mPath->getCurrent(),clan->plusProcheRessource(mPath->getCurrent())->getPosition(),warrior,Alliance(clan->getAlliance()));
+
+                        // Suppression des deux pathfinders
+                        clan->removeMember(mPath->getTargetToMerged()->getId());
+                        mPath->getTargetToMerged()->setPromoted(false);
+                        clan->removeMember(mPath->getId());
+                    }
+                }
+                break;
+            case warrior://STRATEGIE DEFENCE WARRIOR
+                break;
+            case robot://STRATEGIE DEFENCE ROBOT
+                break;
+            }
+
+        }
+    }
+    else//cas juste après la "course aux ressources"
+    {//80% des eclaireurs vont entamer une procedure de mutation en warrior en rejoignant un autre eclaireur
+        foreach(ClanMember* m, clan->getMembers())
+        {
+            if(clan->getNbWarrior()==0 && !((Pathfinder*)m)->isPromoted()&& (genrand_int32()%100)<PROBA_PROMOTED)
+            {
+                ((Pathfinder*)m)->setPromoted(true);
+                m->setVector(Position(1,1));
+            }
+            else
+            {
+                if(!((Pathfinder*)m)->isPromoted())
+                {
+                    m->setObjectif(m->getCurrent());
+                }
+            }
+        }
+        clan->setPromotedPhase(false);
+    }
+}
+
+
+void StrategieAttaque::executeStrategie(Clan *clan)
+{
+    foreach(ClanMember* m, clan->getMembers())
+    {
+        m->setObjectif(m->getCurrent());
+        m->setVector(Position(0,0));
+    }
+}

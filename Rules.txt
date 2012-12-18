@@ -1,0 +1,8 @@
+Pour la création des warriors en début de partie:
+- après la phase d'exploration, on passe en mode défense, il faut donc créer des warriors
+- si 2 pathfinder sont sur la même case et sont tout les deux promu, alors création d'un warriors et destruction des 2 pathfinder
+- pour éviter de détruire tous les pathfinder, on limite le nombre de pathfinder minimale / clan à 20% du nombre total de membre
+
+ajout d'un Id aux clanmember
+ajout des deux booleens aux pathfinder permettant de gérer les promotions
+ajout d'un attribut _targetToMerged qui est un Pathfinder* (l'agent avec lequel on veut fusionner).
