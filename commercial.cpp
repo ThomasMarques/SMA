@@ -1,7 +1,9 @@
 #include "commercial.h"
-#include <clan.h>
+#include "clan.h"
+#include <iostream>
 
-unsigned Commercial::prixRessource[4] = {500,200,100,50}; ///< Prix d'achat des différentes ressources par le marchant.
+Commercial* Commercial::instance = NULL;
+unsigned Commercial::prixResource[4] = {500,200,100,50}; ///< Prix d'achat des différentes ressources par le marchant.
 unsigned Commercial::prixRobot = 1000; ///< Prix de vente d'un robot.
 
 Commercial::Commercial()
@@ -9,21 +11,30 @@ Commercial::Commercial()
 
 }
 
-bool Commercial::achatRobot(unsigned *argentClan, Clan *clanAcheteur, Position& posRobot)
+bool Commercial::achatRobot(Clan *clanAcheteur, Position &posRobot)
 {
-    bool ret = (*argentClan >= prixRobot);
+    bool ret = (clanAcheteur->getArgent() >= prixRobot);
     if(ret)
     {
-        (*argentClan) -= prixRobot;
-        clanAcheteur->addMember(posRobot,posRobot,Member_type(2),clanAcheteur->getAlliance());
+        clanAcheteur->decArgent(prixRobot);
+        clanAcheteur->addMember(posRobot,posRobot,Member_type(2),Alliance(clanAcheteur->getAlliance()));
     }
-    return re;
+    return ret;
 }
 
 
-void Commercial::sellResources(unsigned *argentClan, Resource *sellRes)
+void Commercial::sellResources(Clan *clanVendeur, Resource *sellRes)
 {
-    (*argentClan) += prixResource[sellRes->getType()];
+    clanVendeur->incArgent(sellRes->getRessourcesProduite()*prixResource[sellRes->getType()]);
+    std::cout << sellRes->getRessourcesProduite() << std::endl;
+    sellRes->RAZRessourcesProduite();
 
     delete sellRes;
+}
+
+Commercial* Commercial::getInstance()
+{
+    if(!instance)
+        instance = new Commercial();
+    return instance;
 }

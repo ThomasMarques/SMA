@@ -36,11 +36,10 @@ class Resource
         Position getPosition() {return _position;}
         Clan* getClan() {return _clan;}
         unsigned getRessourcesProduite() {return _ressourcesProduite;}
+        void RAZRessourcesProduite() {_ressourcesProduite = 0;}
 
-        void setClan(Clan *clan) {_clan = clan; _nbRessources = 0;}
+        void setClan(Clan *clan) {_clan = clan; _ressourcesProduite = 0;}
         void incRessourcesProduite() {++_ressourcesProduite;}
-        void decRessourcesProduite(unsigned aEnlever) {_ressourcesProduite -= aEnlever;}
-
         static int GetNbResource() {return _NbResource;}
         static void InitNbResource() {_NbResource = 0;}
 

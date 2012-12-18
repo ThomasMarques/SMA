@@ -20,7 +20,7 @@ class ClanMember
     private :
         Position _objectif;
         Position _current;
-        Planet * _planet;
+        Planet *_planet;
         Alliance _alliance;
         unsigned _id;
         static unsigned _Count;

@@ -21,7 +21,6 @@ class Planet : public QThread
         // Matrice contenant les agents et ressources de la map
         Agents ***_map;
         Clan *_clan[2];
-        Commercial *_commercial;
         bool _running;
         unsigned _time;
 
@@ -39,7 +38,6 @@ class Planet : public QThread
         ~Planet();
         Agents*** getMap() {return _map;}
         Clan* getClan(unsigned clan) {return _clan[clan];}
-        Commercial* getCommercial() {return _commercial;}
         bool ***getMapClan();
         void naissance();
         unsigned* getT() {return &_time;}

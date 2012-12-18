@@ -30,7 +30,7 @@ class Clan
         bool **_mapVisitee;
         unsigned _alliance;
         bool _promotedPhase;
-        unsigned _argentClan;
+        long unsigned _argent;
 
         // Les stratégies que le clan peut adopter
         static StrategieExploration _Se;
@@ -48,6 +48,7 @@ class Clan
         void removeMember(unsigned inId);
         Agents*** getMapConnue() {return _mapConnue;}
         bool** getMapVisitee() {return _mapVisitee;}
+        unsigned getArgent() {return _argent;}
         void initMapVisitee();
         void execute();
         QVector<ClanMember*>& getMembers() {return _members;}
@@ -58,6 +59,8 @@ class Clan
         bool isPromotedPhase() { return _promotedPhase; }
         void setPromotedPhase(bool inPhase) { _promotedPhase=inPhase; }
         Resource* plusProcheRessource(Position inPos);
+        void incArgent(unsigned inc) {_argent += inc;}
+        void decArgent(unsigned dec) {_argent -= dec;}
 };
 
 #endif // CLAN_H

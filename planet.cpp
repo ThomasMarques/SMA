@@ -7,7 +7,6 @@ Position Planet::posDepartClan[2] = { Position(HAUTEUR/2,LARGEUR/4) , Position(H
 
 Planet::Planet(QObject *parent) : QThread(parent)
 {
-    _commercial = new Commercial();
     _clan[0] = new Clan(posDepartClan[0],this,JEDI);
     _clan[1] = new Clan(posDepartClan[1],this,SITH);
     init_ressource();

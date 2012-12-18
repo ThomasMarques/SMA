@@ -1,4 +1,5 @@
 #include "clan.h"
+#include "commercial.h"
 #include <iostream>
 
 StrategieExploration Clan::_Se;
@@ -7,7 +8,7 @@ StrategieDefence Clan::_Sd;
 
 Clan::Clan(Position posDepart, Planet *planete, unsigned alliance)
 {
-    _argentClan = 0;
+    _argent = 0;
     _planet = planete;
     _posDepart = posDepart;
     _nbWarrior = 0;
@@ -229,6 +230,13 @@ void Clan::execute()
             }
         }
     }
+
+    foreach(Resource* res, _resources)
+    {
+        res->incRessourcesProduite();
+        Commercial::getInstance()->sellResources(this,res);
+    }
+    std::cout << "Argent du clan : " << _argent << std::endl;
 }
 
 void Clan::initMapVisitee()
