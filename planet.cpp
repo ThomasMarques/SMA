@@ -38,7 +38,16 @@ void Planet::init_ressource()
 
             if( PROBA_RESSOURCE > genrand_int32()%100 )
             {
-                a->res = new Resource(genrand_int32()%NB_RESSOURSES,i,j);
+                unsigned proba = genrand_int32()%100;
+                for(unsigned l = 0 ; l < NB_RESSOURSES ; ++l)
+                {
+                    if(proba < Resource::probaRes[l])
+                    {
+                        proba = l;
+                        break;
+                    }
+                }
+                a->res = new Resource(proba,i,j);
             }
             else
             {

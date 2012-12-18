@@ -9,7 +9,6 @@ private :
 
     static Commercial *instance;
     static unsigned prixResource[4]; ///< Prix d'achat des différentes ressources par le marchant.
-    static unsigned prixRobot; ///< Prix de vente d'un robot.
 
 public:
     /**
@@ -36,6 +35,9 @@ public:
       * \brief Permet de récupérer l'instance de Commercial ou de la crée si ce n'est pas le cas.
       */
     static Commercial* getInstance();
+
+
+    static const unsigned  prixRobot; ///< Prix de vente d'un robot.
 };
 
 #endif // COMMERCIAL_H

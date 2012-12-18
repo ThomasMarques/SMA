@@ -231,11 +231,16 @@ void Clan::execute()
         }
     }
 
+    /// On vends toute nos ressources.
     foreach(Resource* res, _resources)
     {
         res->incRessourcesProduite();
         Commercial::getInstance()->sellResources(this,res);
     }
+    /// On achete autant de robot que possibles.
+    Position p(0,0);
+    while(Commercial::getInstance()->achatRobot(this,p));
+
     std::cout << "Argent du clan : " << _argent << std::endl;
 }
 

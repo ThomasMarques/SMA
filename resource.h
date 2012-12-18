@@ -48,6 +48,9 @@ class Resource
         /// 2 booléens utilisés lors de la phase d'exploration
         bool _viseJedi;
         bool _viseSith;
+
+
+        static const unsigned probaRes[];
 };
 
 #endif // RESSOURCE_H

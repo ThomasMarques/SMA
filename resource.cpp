@@ -1,7 +1,8 @@
 #include "resource.h"
 #include <iostream>
 
-Qt::GlobalColor Resource::color[NB_RESSOURSES] = {Qt::red,Qt::green,Qt::cyan,Qt::yellow};
+Qt::GlobalColor Resource::color[NB_RESSOURSES] = {Qt::cyan,Qt::yellow,Qt::gray,Qt::red};
+const unsigned Resource::probaRes[NB_RESSOURSES] = {10,30,60,100};
 int Resource::_NbResource = 0;
 
 Resource::Resource(unsigned type, unsigned x, unsigned y, Clan *clan)

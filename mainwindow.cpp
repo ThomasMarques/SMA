@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _zoom = 1;
 
     ui->setupUi(this);
-
 }
 
 MainWindow::~MainWindow()
