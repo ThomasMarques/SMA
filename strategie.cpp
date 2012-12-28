@@ -45,13 +45,14 @@ void StrategieDefence::executeStrategie(Clan *clan)
                 }
                 else
                 {
-                    if(mPath->getObjectif() == mPath->getCurrent() && mPath->getTargetToMerged()->getCurrent() == mPath->getObjectif())
+                    if(mPath->isGoingToMerge() && mPath->getObjectif() == mPath->getCurrent() && mPath->getTargetToMerged()->getCurrent() == mPath->getObjectif())
                     {
                         //alors delete 2 eclaireur a cette position et creer un warrior
 
                         // L'objectif du guerrier est de rejoindre le camp (ressource du clan) le plus proche
                         clan->addMember(mPath->getCurrent(),clan->plusProcheRessource(mPath->getCurrent())->getPosition(),warrior,Alliance(clan->getAlliance()));
 
+                        cout <<"MERGED IN : {"<< mPath->getCurrent().x<<","<< mPath->getCurrent().y<<"}"<< endl;
                         // Suppression des deux pathfinders
                         clan->removeMember(mPath->getTargetToMerged()->getId());
                         mPath->getTargetToMerged()->setPromoted(false);

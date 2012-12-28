@@ -17,7 +17,10 @@ Planet::Planet(QObject *parent) : QThread(parent)
 Planet::~Planet()
 {
     delete[] _clan;
+    delete [] *_map;
     delete[] _map;
+    delete [] *_fightingMap;
+    delete [] _fightingMap;
 }
 
 void Planet::init_ressource()
@@ -26,9 +29,14 @@ void Planet::init_ressource()
 
     _map = new Agents**[HAUTEUR];
     *_map = new Agents*[HAUTEUR*LARGEUR];
+    _fightingMap= new bool*[HAUTEUR];
+    *_fightingMap= new bool[HAUTEUR*LARGEUR];
 
     for(unsigned i = 1 ; i < HAUTEUR ; ++i)
+    {
         _map[i] = _map[i-1] + LARGEUR;
+        _fightingMap[i]=_fightingMap[i-1] + LARGEUR;
+    }
 
     for(unsigned i = 0 ; i < HAUTEUR ; ++i)
     {
@@ -60,6 +68,7 @@ void Planet::init_ressource()
             a->sith.nbGuerrier = 0;
             a->sith.nbRobot = 0;
             _map[i][j] = a;
+            _fightingMap[i][j]=false;
         }
     }
     for(unsigned i = 0 ; i <NB_PATHFINDER_START ; ++i)
@@ -89,8 +98,8 @@ void Planet::run()
         _clan[0]->execute();
         _clan[1]->execute();
 
-//        if(_t%15 == 14)
-//            naissance();
+        if(_time%15 == 14)
+            naissance();
         emit modelChanged();
     }
 }
@@ -127,7 +136,7 @@ void Planet::naissance()
         }
         else
         {
-            _clan[1]->addMember(posDepartClan[1],posDepartClan[1],Member_type(1),JEDI);
+            _clan[1]->addMember(posDepartClan[1],posDepartClan[1],Member_type(1),SITH);
         }
     }
 

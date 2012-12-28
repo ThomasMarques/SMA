@@ -15,7 +15,9 @@ class Pathfinder : public ClanMember
 
     public:
         Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance);
+        Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance,bool inPromote);
         bool isPromoted() { return _promoted; }
+        bool isGoingToMerge() { return _gonnaMerge; }
         void setPromoted(bool inProm) { _promoted=inProm; }
         void setGonnaMerge(bool inGm) {_gonnaMerge=inGm;}
         Pathfinder* getTargetToMerged() {return _targetToMerged;}

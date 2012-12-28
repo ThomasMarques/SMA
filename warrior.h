@@ -10,6 +10,7 @@ class Warrior : public ClanMember
         Warrior(Position current, Position objectif,Planet * inPlanet,Alliance inAlliance);
 
         void execute();
+        void fightCurrent();
 };
 
 #endif // WARRIOR_H

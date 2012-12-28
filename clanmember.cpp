@@ -19,7 +19,15 @@ ClanMember* ClanMember::Create(Position current, Position objectif, Member_type 
     case Member_type(0) :
         return new Warrior(current,objectif,inPlanet,inAlliance);
     case Member_type(1) :
-        return new Pathfinder(current,objectif,inPlanet,inAlliance);
+        if(!inPlanet->allResourceBusy())
+            return new Pathfinder(current,objectif,inPlanet,inAlliance);
+        else
+        {
+            if(genrand_int32()%100 < PROBA_NAISS_MERGE)
+                return new Pathfinder(current,objectif,inPlanet,inAlliance,true);
+            else
+                return new Pathfinder(current,objectif,inPlanet,inAlliance);
+        }
     case Member_type(2) :
         return new Robot(current,objectif,inPlanet,inAlliance);
     default :

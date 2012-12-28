@@ -11,8 +11,10 @@
 #define PROBA_RESSOURCE 3 /// En %
 #define PROBA_NAISS 1 /// En %age du nombre total de ClanMember
 #define NB_PATHFINDER_START 15
+#define PROBA_NAISS_MERGE 33 // En %
 
 class Clan;
+class Pathfinder;
 
 class Planet : public QThread
 {
@@ -21,6 +23,7 @@ class Planet : public QThread
         // Matrice contenant les agents et ressources de la map
         Agents ***_map;
         Clan *_clan[2];
+        bool ** _fightingMap;
         bool _running;
         unsigned _time;
 
@@ -39,6 +42,7 @@ class Planet : public QThread
         Agents*** getMap() {return _map;}
         Clan* getClan(unsigned clan) {return _clan[clan];}
         bool ***getMapClan();
+        bool ** getFightingMap() { return _fightingMap; }
         void naissance();
         unsigned* getT() {return &_time;}
         void stop() {_running = false;}
