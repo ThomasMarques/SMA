@@ -61,7 +61,7 @@ void MainWindow::on_button_lancer_clicked()
 {
     unsigned w,h;
     _planet = new Planet();
-    ui->widget = new WidgetView(_planet->getMap(),_planet->getT(),_planet->getMapClan(),ui->centralWidget);
+    ui->widget = new WidgetView(_planet->getMap(),_planet->getT(),_planet->getMapClan(),_planet->getClans(),ui->centralWidget);
     ui->widget->setObjectName(QString::fromUtf8("widget"));
     ui->widget->setGeometry(QRect(30, 10, (this->width()-60)*_zoom, (this->height()-40)*_zoom));
     w = LARGEUR * ((this->width()-60)/LARGEUR);

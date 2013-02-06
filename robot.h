@@ -7,10 +7,12 @@
 
 class Robot : public ClanMember
 {
+private :
+
     public:
         Robot(Position current, Position objectif,Planet * inPlanet,Alliance inAlliance);
 
-        void execute() {}
+        void execute();
 };
 
 #endif // ROBOT_H

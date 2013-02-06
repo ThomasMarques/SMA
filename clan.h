@@ -10,8 +10,16 @@
 using namespace std;
 
 #define WARRIOR_VIEW 3
+#define WARRIOR_LIFE 5
+#define WARRIOR_SHOT 3
+
 #define PATHFINDER_VIEW 5
+#define PATHFINDER_LIFE 3
+#define PATHFINDER_SHOT 0
+
 #define ROBOT_VIEW 3
+#define ROBOT_LIFE 3
+#define ROBOT_SHOT 1
 
 class Clan
 {

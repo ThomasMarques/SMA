@@ -15,6 +15,7 @@
 
 class Clan;
 class Pathfinder;
+class ClanMember;
 
 class Planet : public QThread
 {
@@ -41,12 +42,15 @@ class Planet : public QThread
         ~Planet();
         Agents*** getMap() {return _map;}
         Clan* getClan(unsigned clan) {return _clan[clan];}
+        Clan** getClans() {return _clan;}
         bool ***getMapClan();
         bool ** getFightingMap() { return _fightingMap; }
         void naissance();
         unsigned* getT() {return &_time;}
         void stop() {_running = false;}
         bool allResourceBusy();
+        ClanMember* getMember(Position xy, unsigned clan);
+
 
     signals :
         void modelChanged();

@@ -25,6 +25,9 @@ class ClanMember
         unsigned _id;
         static unsigned _Count;
         Member_type _type;
+        int _nbLife;
+        int _shotValue;
+        ClanMember* _vise;
 
         //Deplacement
         Position _vector;
@@ -44,16 +47,21 @@ class ClanMember
         Position getCurrent() {return _current;}
         void setObjectif(Position objectif) {_objectif = objectif;}
         void setCurrent(Position current) {_current = current;}
+        unsigned getLife() {return _nbLife;}
+        unsigned getShotValue() {return _shotValue;}
         unsigned getId() {return _id;}
         Member_type getType() {return _type;}
         static unsigned GetCount() {return _Count;}
         Alliance getAlliance() { return _alliance;}
+        ClanMember* getVise() {return _vise;}
 
         //Deplacement
         Position& getVector() {return _vector;}
         void setVector(Position inVect) {_vector.x=inVect.x;_vector.y=inVect.y;_cpt = Position(0,0);}
         void moveVector();
         void movePosition();
+        void receiveShot(int inShotValue);
+        void getNearestVise(int view);
 
         virtual void execute() = 0;
 };

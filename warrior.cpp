@@ -1,9 +1,12 @@
 #include "warrior.h"
+#include "clan.h"
 #include <QVector>
 
 Warrior::Warrior(Position current, Position objectif,Planet * inPlanet,Alliance inAlliance) : ClanMember(current,objectif,inPlanet,inAlliance)
 {
     _type=warrior;
+    _nbLife=WARRIOR_LIFE;
+    _shotValue=WARRIOR_SHOT;
 }
 
 void Warrior::execute()

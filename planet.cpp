@@ -1,5 +1,6 @@
 #include "planet.h"
 #include "clan.h"
+#include "clanmember.h"
 #include <iostream>
 #include "widgetview.h"
 
@@ -92,13 +93,14 @@ void Planet::run()
     for(_time = 0 ; _running ; ++_time)
     {
         QThread::msleep(200);
+
         /// Pour voir la map parcouru au total commenter les 2 lignes
         _clan[0]->initMapVisitee();
         _clan[1]->initMapVisitee();
         _clan[0]->execute();
         _clan[1]->execute();
 
-        if(_time%15 == 14)
+        if(_time%20 == 19)
             naissance();
         emit modelChanged();
     }
@@ -140,6 +142,16 @@ void Planet::naissance()
         }
     }
 
+}
+
+ClanMember* Planet::getMember(Position xy, unsigned clan)
+{
+    foreach(ClanMember* cm, _clan[clan]->getMembers())
+    {
+        if(cm->getCurrent() == xy)
+            return cm;
+    }
+    return NULL;
 }
 
 bool Planet::allResourceBusy()

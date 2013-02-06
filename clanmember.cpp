@@ -2,6 +2,7 @@
 #include "warrior.h"
 #include "pathfinder.h"
 #include "robot.h"
+#include "clan.h"
 
 unsigned ClanMember::_Count = 0;
 
@@ -87,6 +88,78 @@ void ClanMember::movePosition()
             else
                 _current.y = _current.y%LARGEUR;
         }
+    }
+}
+
+void ClanMember::receiveShot(int inShotValue)
+{
+    _nbLife-=inShotValue;
+    if(_nbLife <= 0) //destruction du ClanMember
+    {
+        _planet->getClan(_alliance)->removeMember(_id);
+    }
+}
+
+void ClanMember::getNearestVise(int view)
+{
+    bool finded = false;
+
+    if(!finded)
+    {
+        /// On cherche l'ennemie
+        unsigned x,y,tmp;
+
+        for(int i = _current.x - view; i < view + _current.x && !finded ; ++i)
+        {
+            for(int j = _current.y - view; j < view + _current.y && !finded ; ++j)
+            {
+                x = i-_current.x;
+                y = j-_current.y;
+                tmp = x*x+y*y;
+                if( tmp < view*view )
+                {
+                    if(i < 0)
+                        x = i + HAUTEUR;
+                    else
+                        x = i % HAUTEUR;
+                    if(j < 0)
+                        y = j + LARGEUR;
+                    else
+                        y = j % LARGEUR;
+
+                    unsigned adv;
+                    if(_alliance == JEDI)
+                        adv = _planet->getMap()[x][y]->sith.nbEclaireur +
+                                _planet->getMap()[x][y]->sith.nbGuerrier +
+                                _planet->getMap()[x][y]->sith.nbGuerrier;
+                    else
+                        adv = _planet->getMap()[x][y]->jedi.nbEclaireur +
+                                _planet->getMap()[x][y]->jedi.nbGuerrier +
+                                _planet->getMap()[x][y]->jedi.nbGuerrier;
+
+                    if(adv > 0)
+                    {
+                        if(_alliance == JEDI)
+                        {
+                            _vise = _planet->getMember(Position(x,y),1);
+                        }
+                        else
+                        {
+                            _vise = _planet->getMember(Position(x,y),0);
+                        }
+                        if(_vise != NULL)
+                        {
+                            finded = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if(!finded)
+    {
+        _vise = NULL;
     }
 }
 

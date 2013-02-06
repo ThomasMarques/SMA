@@ -14,6 +14,8 @@ Pathfinder::Pathfinder(Position current, Position objectif,Planet * inPlanet,All
     _gonnaMerge=false;
     _targetToMerged=NULL;
     _type=pathfinder;
+    _nbLife=PATHFINDER_LIFE;
+    _shotValue=PATHFINDER_SHOT;
 }
 
 Pathfinder::Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance,bool inPromote) : ClanMember(current,objectif,inPlanet,inAlliance)
@@ -25,6 +27,8 @@ Pathfinder::Pathfinder(Position current, Position objectif,Planet* inPlanet,Alli
     _gonnaMerge=false;
     _targetToMerged=NULL;
     _type=pathfinder;
+    _nbLife=PATHFINDER_LIFE;
+    _shotValue=PATHFINDER_SHOT;
     cout <<"Crea Pathfinder merge"<<endl;
 }
 

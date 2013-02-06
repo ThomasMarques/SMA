@@ -1,14 +1,16 @@
 #include "widgetview.h"
 #include "QPainter"
 #include "clan.h"
+#include "robot.h"
 #include <iostream>
 #include <sstream>
 
-WidgetView::WidgetView(Agents ***map, unsigned *t, bool ***mapClan, QWidget *parent) : QWidget(parent)
+WidgetView::WidgetView(Agents ***map, unsigned *t, bool ***mapClan, Clan** clan, QWidget *parent) : QWidget(parent)
 {
     _map = map;
     _time = t;
     _mapClan = mapClan;
+    _clan = clan;
 }
 
 WidgetView::~WidgetView()
@@ -22,7 +24,7 @@ void WidgetView::paintEvent(QPaintEvent *p)
     std::stringstream ss;
     unsigned hauteur = (this->height()-20)/HAUTEUR;
     unsigned largeur = this->width()/LARGEUR;
-    unsigned i,j,decal,k;
+    unsigned i,j,k;
     bool diffZero = false;
     QPainter painter(this);
     QPen pen(Qt::white,1);
@@ -37,9 +39,11 @@ void WidgetView::paintEvent(QPaintEvent *p)
 
     for(i = 0 ; i < HAUTEUR ; ++i)
     {
+//        painter.drawText(8,i*hauteur+15,largeur,hauteur,0,QString::number(i));
+//        painter.drawText(i*largeur+8,15,largeur,hauteur,0,QString::number(i));
+
         for(j = 0 ; j < LARGEUR ; ++j)
         {
-            decal = 1;
 //            if(_mapClan[0][i][j])
 //                painter.fillRect(j*largeur+1,i*hauteur+16,largeur/2,hauteur-1,Qt::blue);
 //            if(_mapClan[1][i][j])
@@ -111,9 +115,50 @@ void WidgetView::paintEvent(QPaintEvent *p)
             }
         }
     }
+
+    /// On affiche les tir.
+    painter.setPen(QPen(Qt::cyan,2,Qt::DashLine));
+
+    ClanMember *vise;
+
+    foreach(ClanMember *cm, _clan[0]->getMembers())
+    {
+        if(cm->getType() == robot)
+        {
+            vise = ((Robot*)cm)->getVise();
+            if(vise != NULL)
+            {
+                painter.drawLine(cm->getCurrent().y*largeur+3,cm->getCurrent().x*hauteur+17,
+                                         vise->getCurrent().y*largeur+3,vise->getCurrent().x*hauteur+22);
+                vise->receiveShot(cm->getShotValue());
+            }
+        }
+    }
+
+    painter.setPen(QPen(Qt::red,2,Qt::DashLine));
+
+    bool t =false;
+
+    foreach(ClanMember *cm, _clan[1]->getMembers())
+    {
+        if(cm->getType() == robot)
+        {
+            vise = ((Robot*)cm)->getVise();
+            if(vise != NULL)
+            {
+                painter.drawLine(cm->getCurrent().y*largeur+3,cm->getCurrent().x*hauteur+22,
+                                         vise->getCurrent().y*largeur+3,vise->getCurrent().x*hauteur+17);
+                vise->receiveShot(cm->getShotValue());
+                t = true;
+            }
+        }
+    }
+
     painter.setPen(Qt::white);
     painter.drawRect(0,15,largeur*LARGEUR,hauteur*HAUTEUR);
     painter.end();
+    if(t)
+        int i = 0;
 }
 
 void WidgetView::modelChanged()
