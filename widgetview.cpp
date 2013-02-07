@@ -5,11 +5,12 @@
 #include <iostream>
 #include <sstream>
 
-WidgetView::WidgetView(Agents ***map, unsigned *t, bool ***mapClan, Clan** clan, QWidget *parent) : QWidget(parent)
+WidgetView::WidgetView(Agents ***map, unsigned *t, bool ***mapClan,bool ** fightingMap, Clan** clan, QWidget *parent) : QWidget(parent)
 {
     _map = map;
     _time = t;
     _mapClan = mapClan;
+    _fightingMap=fightingMap;
     _clan = clan;
 }
 
@@ -48,6 +49,11 @@ void WidgetView::paintEvent(QPaintEvent *p)
 //                painter.fillRect(j*largeur+1,i*hauteur+16,largeur/2,hauteur-1,Qt::blue);
 //            if(_mapClan[1][i][j])
 //                painter.fillRect((j+1)*largeur-largeur/2,i*hauteur+16,largeur/2,hauteur-1,Qt::darkRed);
+            if(_fightingMap[i][j])
+            {
+                painter.fillRect(j*largeur,i*hauteur+15,largeur,hauteur,Qt::white);
+                _fightingMap[i][j]=false;
+            }
 
             if(_map[i][j]->res != NULL)
             {

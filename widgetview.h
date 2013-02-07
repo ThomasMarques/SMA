@@ -9,7 +9,7 @@ class WidgetView : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WidgetView(Agents ***map, unsigned *t, bool ***mapClan, Clan **clan, QWidget *parent = 0);
+    explicit WidgetView(Agents ***map, unsigned *t, bool ***mapClan,bool ** fightingMap, Clan **clan, QWidget *parent = 0);
     ~WidgetView();
     void paintEvent(QPaintEvent *p);
 
@@ -19,10 +19,11 @@ public slots :
 private :
     Agents ***_map;
     bool ***_mapClan;
+    bool ** _fightingMap;
     Clan **_clan;
     unsigned *_time;
 
-    
+
 };
 
 #endif // WIDGETVIEW_H

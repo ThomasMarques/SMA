@@ -23,32 +23,19 @@ void Warrior::execute()
     else
         moveVector();
 
+    fight();//dans tous les cas, un warrior combat
+
     if(_alliance == SITH)
      tmpMap[_current.x][_current.y]->sith.nbGuerrier++;
     else
      tmpMap[_current.x][_current.y]->jedi.nbGuerrier++;
 }
 
-void Warrior::fightCurrent()
+void Warrior::fight()
 {
-   /* cptIndividu currentAg;
-    int alli;
-    if(_alliance == JEDI)
+    getNearestVise(0);//portée de 0
+    if(_vise)
     {
-        currentAg=_planet->getMap()[_current.x][_current.y]->sith;
-        alli=SITH;
+        _vise->receiveShot(WARRIOR_SHOT);
     }
-    else
-    {
-        currentAg=_planet->getMap()[_current.x][_current.y]->jedi;
-        alli=JEDI;
-    }
-
-    if(currentAg.nbEclaireur > 0) // alors on les combat (100% de victoire)
-    {
-        QVector<ClanMember*> tmp= _planet->getClan(alli).getMembers();
-        QVector<ClanMember*>::iterator ite;
-
-        _planet->getFightingMap()[_current.x][_current.y]=true;
-    }*/
 }

@@ -94,8 +94,12 @@ void ClanMember::movePosition()
 void ClanMember::receiveShot(int inShotValue)
 {
     _nbLife-=inShotValue;
+    _planet->getFightingMap()[_current.x][_current.y]=true;
     if(_nbLife <= 0) //destruction du ClanMember
     {
+        foreach(ClanMember* members, _shootersList)
+            members->setVise(NULL);
+
         _planet->getClan(_alliance)->removeMember(_id);
     }
 }
@@ -150,6 +154,7 @@ void ClanMember::getNearestVise(int view)
                         if(_vise != NULL)
                         {
                             finded = true;
+                            _vise->getShootersList().push_back(this);
                         }
                     }
                 }

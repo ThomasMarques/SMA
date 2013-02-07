@@ -1,6 +1,7 @@
 #ifndef CLANMEMBER_H
 #define CLANMEMBER_H
 
+#include <QVector>
 #include "structure.h"
 #include "planet.h"
 
@@ -27,7 +28,8 @@ class ClanMember
         Member_type _type;
         int _nbLife;
         int _shotValue;
-        ClanMember* _vise;
+        ClanMember* _vise;//cible
+        QVector<ClanMember*> _shootersList;//liste des ennemis qui vise le clanmember courrant
 
         //Deplacement
         Position _vector;
@@ -54,12 +56,16 @@ class ClanMember
         static unsigned GetCount() {return _Count;}
         Alliance getAlliance() { return _alliance;}
         ClanMember* getVise() {return _vise;}
+        void setVise(ClanMember* inVise) { _vise=inVise;}
+        QVector<ClanMember*> getShootersList() {return _shootersList;}
 
         //Deplacement
         Position& getVector() {return _vector;}
         void setVector(Position inVect) {_vector.x=inVect.x;_vector.y=inVect.y;_cpt = Position(0,0);}
         void moveVector();
         void movePosition();
+
+        //Combat
         void receiveShot(int inShotValue);
         void getNearestVise(int view);
 
