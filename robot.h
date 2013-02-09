@@ -1,9 +1,10 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
+#include <iostream>
+
 #include "clanmember.h"
 #include "planet.h"
-#include <iostream>
 
 class Robot : public ClanMember
 {

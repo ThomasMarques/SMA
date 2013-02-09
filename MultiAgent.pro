@@ -9,7 +9,6 @@ QT       += core gui
 TARGET = MultiAgent
 TEMPLATE = app
 
-
 SOURCES += \
     widgetview.cpp \
     warrior.cpp \

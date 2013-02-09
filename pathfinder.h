@@ -1,9 +1,9 @@
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
-#include "clanmember.h"
 #include <QVector>
 #include <iostream>
+#include "clanmember.h"
 
 class Pathfinder : public ClanMember
 {
@@ -13,6 +13,10 @@ class Pathfinder : public ClanMember
         bool _gonnaMerge;
         Pathfinder* _targetToMerged;
 
+        Resource * _resourceTargeted;
+        unsigned _currentCatching;
+
+
     public:
         Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance);
         Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance,bool inPromote);
@@ -21,6 +25,9 @@ class Pathfinder : public ClanMember
         void setPromoted(bool inProm) { _promoted=inProm; }
         void setGonnaMerge(bool inGm) {_gonnaMerge=inGm;}
         Pathfinder* getTargetToMerged() {return _targetToMerged;}
+        Resource * getResourceTargeted(){ return _resourceTargeted;}
+        void setResourceTargeted(Resource * inRes) { _resourceTargeted=inRes;}
+        bool catchingRessource();
         void execute();
 };
 

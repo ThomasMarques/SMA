@@ -1,8 +1,9 @@
 #ifndef WARRIOR_H
 #define WARRIOR_H
 
-#include "clanmember.h"
 #include <iostream>
+#include "clanmember.h"
+
 
 class Warrior : public ClanMember
 {

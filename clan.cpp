@@ -166,10 +166,17 @@ void Clan::execute()
                 cm->setVector(Position(0,0));
             }
         }
-        _strategie = &_Sd;
+
+        //les clans sont en mode défense un temps minium
+        if( *(_planet->getT()) < 60)
+            _strategie = &_Sd;
+        else
+            _strategie= &_Sa;
     }
 
     _strategie->executeStrategie(this);
+
+
 
     /// On appelle la fonction de chaque membre du clan
     foreach(ClanMember *cm, _members)

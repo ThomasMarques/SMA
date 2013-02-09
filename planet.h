@@ -1,10 +1,12 @@
 #ifndef PLANETE_H
 #define PLANETE_H
 
+#include <QtCore/QObject>
+#include <QThread>
+
 #include "resource.h"
 #include "commercial.h"
-#include <QThread>
-#include <QObject>
+
 
 #define HAUTEUR 50
 #define LARGEUR 50
@@ -50,6 +52,8 @@ class Planet : public QThread
         void stop() {_running = false;}
         bool allResourceBusy();
         ClanMember* getMember(Position xy, unsigned clan);
+        Resource* plusProcheRessourceClan(Position inPos,unsigned inClan);
+
 
 
     signals :
