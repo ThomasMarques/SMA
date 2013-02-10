@@ -31,9 +31,18 @@ void WidgetView::paintEvent(QPaintEvent *)
     QPen pen(Qt::white,1);
     painter.setPen(pen);
 
-    ss << "Temps " << *_time;
-    painter.drawText(this->width()/2-50,0,250,15,0,QString(ss.str().c_str()));
 
+    ss << "Temps" << *_time;
+    painter.drawText(this->width()/2-50,0,250,15,0,QString(ss.str().c_str()));
+    if(*_time > 0)
+    {
+        ss.str("");
+        ss << "JEDI: " << _clan[JEDI]->getStrategie()->getStrategieName().toStdString();
+        painter.drawText(0,0,300,20,0,QString(ss.str().c_str()));
+        ss.str("");
+        ss << "SITH: " << _clan[SITH]->getStrategie()->getStrategieName().toStdString();
+        painter.drawText(this->width()-112,0,300,20,0,QString(ss.str().c_str()));
+    }
     QFont font;
     font.setPointSize(6);
     painter.setFont(font);

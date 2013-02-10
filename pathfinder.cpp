@@ -12,6 +12,8 @@ Pathfinder::Pathfinder(Position current, Position objectif,Planet * inPlanet,All
     _promoted=false;
     _trouve = false;
     _gonnaMerge=false;
+    _currentCatching=0;
+    _resourceTargeted=NULL;
     _targetToMerged=NULL;
     _type=pathfinder;
     _nbLife=PATHFINDER_LIFE;
@@ -25,11 +27,32 @@ Pathfinder::Pathfinder(Position current, Position objectif,Planet* inPlanet,Alli
     _promoted=inPromote;
     _trouve = false;
     _gonnaMerge=false;
+    _currentCatching=0;
     _targetToMerged=NULL;
+    _resourceTargeted=NULL;
     _type=pathfinder;
     _nbLife=PATHFINDER_LIFE;
     _shotValue=PATHFINDER_SHOT;
     cout <<"Crea Pathfinder merge"<<endl;
+}
+
+bool Pathfinder::catchingRessource()
+{
+    bool ret=false;
+    if(++_currentCatching == CATCHING_TIME)//capture terminée
+    {
+        _currentCatching=0;
+        if(_alliance == JEDI)
+            _planet->getClan(SITH)->removeRessource(_resourceTargeted);
+        else
+            _planet->getClan(JEDI)->removeRessource(_resourceTargeted);
+
+        _planet->getClan(_alliance)->addRessource(_resourceTargeted);
+        _resourceTargeted=NULL;
+        ret=true;
+    }
+
+    return ret;
 }
 
 void Pathfinder::execute()

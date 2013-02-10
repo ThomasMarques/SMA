@@ -48,6 +48,8 @@ class Planet : public QThread
         void stop() {_running = false;}
         bool allResourceBusy();
         ClanMember* getMember(Position xy, unsigned clan);
+        Resource* plusProcheRessourceClan(Position inPos,unsigned inClan);
+
 
 
     signals :

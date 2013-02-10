@@ -2,6 +2,7 @@
 #define RESSOURCE_H
 
 #define NB_RESSOURSES 4
+#define CATCHING_TIME 5
 
 #include <Qt>
 #include "MersenneTwister.h"

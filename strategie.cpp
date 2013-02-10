@@ -92,8 +92,31 @@ void StrategieDefence::executeStrategie(Clan *clan)
 
 void StrategieAttaque::executeStrategie(Clan *clan)
 {
+    Resource* resourceTarget;
     foreach(ClanMember* m, clan->getMembers())
     {
+        switch(m->getType())
+        {
+        case pathfinder://recherche la plus proche ressource enemie pour la capturer
+            Pathfinder * mm=(Pathfinder*)m;
+            if(m->getCurrent()!= m->getObjectif())
+            {
+                if(m->getAlliance()== JEDI)
+                    resourceTarget=clan->getPlanet()->plusProcheRessourceClan(m->getCurrent(),SITH);
+                else
+                    resourceTarget=clan->getPlanet()->plusProcheRessourceClan(m->getCurrent(),JEDI);
+
+                m->setObjectif(resourceTarget->getPosition());
+                mm->setResourceTargeted(resourceTarget);
+            }
+            else
+            {
+                m->setVector(Position(0,0));
+                mm->catchingRessource();
+            }
+            break;
+        }
+
         m->setObjectif(m->getCurrent());
         m->setVector(Position(0,0));
     }

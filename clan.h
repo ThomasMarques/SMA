@@ -55,6 +55,7 @@ class Clan
         Agents*** getMapConnue() {return _mapConnue;}
         bool** getMapVisitee() {return _mapVisitee;}
         unsigned getArgent() {return _argent;}
+        Strategie* getStrategie() const { return _strategie;}
         void initMapVisitee();
         void execute();
         QVector<ClanMember*>& getMembers() {return _members;}

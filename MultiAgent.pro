@@ -12,7 +12,6 @@ TEMPLATE += app
 
 CONFIG += qt gui
 
-
 SOURCES += \
     widgetview.cpp \
     warrior.cpp \

@@ -159,3 +159,8 @@ bool Planet::allResourceBusy()
     std::cout << "Jedi : " << _clan[0]->getResources().size() << "   Sith : " << _clan[1]->getResources().size() << std::endl;
     return Resource::GetNbResource() == _clan[0]->getResources().size() + _clan[1]->getResources().size();
 }
+
+Resource* Planet::plusProcheRessourceClan(Position inPos,unsigned inClan)
+{
+    return _clan[inClan]->plusProcheRessource(inPos);
+}
