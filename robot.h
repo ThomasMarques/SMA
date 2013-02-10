@@ -2,7 +2,6 @@
 #define ROBOT_H
 
 #include "clanmember.h"
-#include "planet.h"
 #include <iostream>
 
 class Robot : public ClanMember

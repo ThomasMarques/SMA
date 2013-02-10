@@ -2,7 +2,6 @@
 #define WIDGETVIEW_H
 
 #include <QWidget>
-#include <QThread>
 #include "planet.h"
 
 class WidgetView : public QWidget
@@ -11,7 +10,7 @@ class WidgetView : public QWidget
 public:
     explicit WidgetView(Agents ***map, unsigned *t, bool ***mapClan,bool ** fightingMap, Clan **clan, QWidget *parent = 0);
     ~WidgetView();
-    void paintEvent(QPaintEvent *p);
+    void paintEvent(QPaintEvent *);
 
 public slots :
     void modelChanged();

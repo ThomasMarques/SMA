@@ -13,7 +13,7 @@ Robot::Robot(Position current, Position objectif,Planet * inPlanet,Alliance inAl
 
 void Robot::execute()
 {
-    getNearestVise(ROBOT_SHOT);
+    getNearestVise(ROBOT_VIEW);
     if(_vise != NULL)
     {
         /// Le tir est déporté pour le moment.

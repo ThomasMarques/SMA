@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "planet.h"
+#include "widgetview.h"
 
 namespace Ui {
 class MainWindow;

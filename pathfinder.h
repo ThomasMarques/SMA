@@ -2,7 +2,6 @@
 #define PATHFINDER_H
 
 #include "clanmember.h"
-#include <QVector>
 #include <iostream>
 
 class Pathfinder : public ClanMember

@@ -1,8 +1,6 @@
 #ifndef CLAN_H
 #define CLAN_H
 
-#include <QVector>
-#include "resource.h"
 #include "planet.h"
 #include "clanmember.h"
 #include "strategie.h"

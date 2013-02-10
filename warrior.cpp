@@ -33,7 +33,7 @@ void Warrior::execute()
 
 void Warrior::fight()
 {
-    getNearestVise(0);//portée de 0
+    getNearestVise(1);//portée de 0
     if(_vise)
     {
         _vise->receiveShot(WARRIOR_SHOT);

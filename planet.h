@@ -1,10 +1,8 @@
 #ifndef PLANETE_H
 #define PLANETE_H
 
-#include "resource.h"
 #include "commercial.h"
 #include <QThread>
-#include <QObject>
 
 #define HAUTEUR 50
 #define LARGEUR 50
