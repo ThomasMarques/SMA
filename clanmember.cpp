@@ -172,18 +172,16 @@ void ClanMember::getNearestVise(int view)
 Warrior* ClanMember::getFollowerWarrior()
 {
     Warrior* ret=NULL;
-    if(_planet->getClan(_alliance)->getNbWarrior() > 0)
+
+    QVector<ClanMember*>::iterator ite= _planet->getClan(_alliance)->getMembers().begin();
+    for(;ret==NULL && ite!= _planet->getClan(_alliance)->getMembers().end();++ite)
     {
-        QVector<ClanMember*>::iterator ite= _planet->getClan(_alliance)->getMembers().begin();
-        for(;ret==NULL && ite!= _planet->getClan(_alliance)->getMembers().end();++ite)
+        if((*ite)->getType() == warrior)
         {
-            if((*ite)->getType() == warrior)
+            Warrior* w=(Warrior*)(*ite);
+            if(w->getFollowing() == NULL)
             {
-                Warrior* w=(Warrior*)(*ite);
-                if(w->getFollowing() == NULL)
-                {
-                    ret=w;
-                }
+                ret=w;
             }
         }
     }

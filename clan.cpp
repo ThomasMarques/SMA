@@ -154,7 +154,7 @@ void Clan::execute()
     int x,y;
 
     /// MAJ de la stratégie et des objectifs de chacun
-    if(!_planet->allResourceBusy() && *(_planet->getT()) < 80)
+    if(!_planet->allResourceBusy())
         _strategie = &_Se;
     else
     {
@@ -168,7 +168,7 @@ void Clan::execute()
         }
 
         //les clans sont en mode défense un temps minium
-        if( *(_planet->getT()) < 150)
+        if(_members.count() <= _planet->getClan((_alliance+1)%2)->getMembers().count())
             _strategie = &_Sd;
         else
             _strategie= &_Sa;
@@ -223,14 +223,16 @@ void Clan::execute()
         {
             if(_alliance == JEDI)
             {
-                _nbWarrior += _mapConnue[x][y]->jedi.nbGuerrier;
+                //_nbWarrior += _mapConnue[x][y]->jedi.nbGuerrier;
+                _nbWarrior+=_planet->getMap()[x][y]->jedi.nbGuerrier;
                 _nbWarriorAdv += _mapConnue[x][y]->sith.nbGuerrier;
                 _nbPathfinder += _mapConnue[x][y]->jedi.nbEclaireur;
                 _nbPathfinderAdv += _mapConnue[x][y]->sith.nbEclaireur;
             }
             else
             {
-                _nbWarrior += _mapConnue[x][y]->sith.nbGuerrier;
+                _nbWarrior+=_planet->getMap()[x][y]->sith.nbGuerrier;
+               // _nbWarrior += _mapConnue[x][y]->sith.nbGuerrier;
                 _nbWarriorAdv += _mapConnue[x][y]->jedi.nbGuerrier;
                 _nbPathfinder += _mapConnue[x][y]->sith.nbEclaireur;
                 _nbPathfinderAdv += _mapConnue[x][y]->jedi.nbEclaireur;
