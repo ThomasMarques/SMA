@@ -6,7 +6,7 @@
 
 #define HAUTEUR 50
 #define LARGEUR 50
-#define PROBA_RESSOURCE 3 /// En %
+#define PROBA_RESSOURCE 2 /// En %
 #define PROBA_NAISS 1 /// En %age du nombre total de ClanMember
 #define NB_PATHFINDER_START 15
 #define PROBA_NAISS_MERGE 33 // En %
@@ -25,6 +25,7 @@ class Planet : public QThread
         bool ** _fightingMap;
         bool _running;
         unsigned _time;
+        bool _run;
 
         // Initialisation de la map
         void init_ressource();
@@ -49,7 +50,7 @@ class Planet : public QThread
         bool allResourceBusy();
         ClanMember* getMember(Position xy, unsigned clan);
         Resource* plusProcheRessourceClan(Position inPos,unsigned inClan);
-
+        void changedRun() {_run = !_run;}
 
 
     signals :

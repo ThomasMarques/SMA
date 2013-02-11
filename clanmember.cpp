@@ -111,7 +111,7 @@ void ClanMember::getNearestVise(int view)
     if(!finded)
     {
         /// On cherche l'ennemie
-        unsigned x,y,tmp;
+        int x,y,tmp;
 
         for(int i = _current.x - view; i < view + _current.x && !finded ; ++i)
         {

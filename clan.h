@@ -4,6 +4,7 @@
 #include "planet.h"
 #include "clanmember.h"
 #include "strategie.h"
+#include <math.h>
 
 using namespace std;
 
@@ -37,8 +38,13 @@ class Clan
         unsigned _alliance;
         bool _promotedPhase;
         long unsigned _argent;
+        bool _resChanged;
+        Position _moyenne;
 
-        // Les stratégies que le clan peut adopter
+        void calculCentreColonie();
+        float distanceToMoyenne(const Position& pos) {return sqrt((_moyenne.x-pos.x)*(_moyenne.x-pos.x)+(_moyenne.y-pos.y)*(_moyenne.y-pos.y));}
+
+        // Les stratï¿½gies que le clan peut adopter
         static StrategieExploration _Se;
         static StrategieAttaque _Sa;
         static StrategieDefence _Sd;
@@ -48,7 +54,7 @@ class Clan
         Clan(Position posDepart, Planet *planete, unsigned alliance);
         ~Clan();
         void init();
-        void addRessource(Resource *resource) {resource->setClan(this);_resources.push_back(resource);}
+        void addRessource(Resource *resource) {resource->setClan(this);_resources.push_back(resource); _resChanged = true;}
         void removeRessource(Resource *ressource);
         void addMember(Position current, Position objectif,Member_type type,Alliance inAlliance);
         void removeMember(unsigned inId);

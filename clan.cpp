@@ -1,6 +1,7 @@
 #include "clan.h"
 #include "commercial.h"
 #include <iostream>
+#include <QtAlgorithms>
 
 StrategieExploration Clan::_Se;
 StrategieAttaque Clan::_Sa;
@@ -15,6 +16,7 @@ Clan::Clan(Position posDepart, Planet *planete, unsigned alliance)
     _nbWarriorAdv = 0;
     _alliance = alliance;
     _promotedPhase = true;
+    _resChanged = false;
 
     /// Allocation de la matrice
     _mapConnue = new Agents**[HAUTEUR];
@@ -80,6 +82,7 @@ void Clan::removeRessource(Resource *resource)
     {
         if(*resource == **iter)
         {
+            _resChanged = true;
             _resources.erase(iter);
             return;
         }
@@ -244,13 +247,18 @@ void Clan::execute()
         res->incRessourcesProduite();
         Commercial::getInstance()->sellResources(this,res);
     }
-    /// On achete autant de robot que possibles.
-    Position p;
-    do
+
+    if(_strategie != &_Se)
     {
-        p = Position(genrand_int32()%HAUTEUR,genrand_int32()%LARGEUR);
+        /// On achete autant de robot que possibles.
+        Position p;
+        do
+        {
+
+            p = Position(genrand_int32()%HAUTEUR,genrand_int32()%LARGEUR);
+        }
+        while(Commercial::getInstance()->achatRobot(this,p));
     }
-    while(Commercial::getInstance()->achatRobot(this,p));
 
     std::cout << "Argent du clan : " << _argent << std::endl;
 }
@@ -277,5 +285,33 @@ Resource* Clan::plusProcheRessource(Position inPos)
     }
     return best;
 }
+
+bool lesssThan(const Resource *r1, const Resource *r2 )
+{
+    //return distanceToMoyenne(r1->getPosition()) > distanceToMoyenne(r2->getPosition());
+    return false;
+}
+
+void Clan::calculCentreColonie()
+{
+    /// On recalcul le centre uniquement si on a supprimé ou ajouté des ressources.
+    if(_resChanged)
+    {
+        float x = 0;
+        float y = 0;
+        unsigned count = 0;
+        foreach(Resource *res, _resources)
+        {
+            x += res->getPosition().x;
+            y += res->getPosition().y;
+
+            ++count;
+        }
+        _moyenne = Position(x/count,y/count);
+
+        qSort ( _resources.begin(), _resources.end(), lesssThan );
+    }
+}
+
 
 

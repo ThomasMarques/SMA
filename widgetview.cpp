@@ -32,7 +32,7 @@ void WidgetView::paintEvent(QPaintEvent *)
     painter.setPen(pen);
 
 
-    ss << "Temps" << *_time;
+    ss << "Temps " << *_time;
     painter.drawText(this->width()/2-50,0,250,15,0,QString(ss.str().c_str()));
     if(*_time > 0)
     {

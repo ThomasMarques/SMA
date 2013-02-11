@@ -20,6 +20,7 @@ public:
 public slots :
     void on_button_init_clicked();
     void on_button_lancer_clicked();
+    void on_button_pause_clicked();
     
 private:
     Ui::MainWindow *ui;

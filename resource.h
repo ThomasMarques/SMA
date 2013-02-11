@@ -34,7 +34,7 @@ class Resource
 
         unsigned getType() {return _type;}
         Qt::GlobalColor getColor() {return color[_type];}
-        Position getPosition() {return _position;}
+        Position getPosition() const {return _position;}
         Clan* getClan() {return _clan;}
         unsigned getRessourcesProduite() {return _ressourcesProduite;}
         void RAZRessourcesProduite() {_ressourcesProduite = 0;}
