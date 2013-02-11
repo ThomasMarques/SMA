@@ -16,6 +16,8 @@ enum Alliance {
     SITH
 };
 
+class Warrior;
+
 class ClanMember
 {
     private :
@@ -58,7 +60,7 @@ class ClanMember
         ClanMember* getVise() {return _vise;}
         void setVise(ClanMember* inVise) { _vise=inVise;}
         QVector<ClanMember*> getShootersList() {return _shootersList;}
-        ClanMember* getFollowerWarrior();
+        Warrior* getFollowerWarrior();
 
         //Deplacement
         Position& getVector() {return _vector;}

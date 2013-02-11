@@ -169,9 +169,9 @@ void ClanMember::getNearestVise(int view)
 }
 
 //renvoie un Warrior disponible pour suivre un pathfinder
-ClanMember *ClanMember::getFollowerWarrior()
+Warrior* ClanMember::getFollowerWarrior()
 {
-    ClanMember* ret=NULL;
+    Warrior* ret=NULL;
     if(_planet->getClan(_alliance)->getNbWarrior() > 0)
     {
         QVector<ClanMember*>::iterator ite= _planet->getClan(_alliance)->getMembers().begin();
