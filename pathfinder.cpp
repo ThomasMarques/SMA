@@ -43,45 +43,49 @@ bool Pathfinder::catchingRessource()
 
     if(_resourceTargeted != NULL)
     {
-        if(++_currentCatching == CATCHING_TIME)//capture terminée
+        if(_resourceTargeted->getClan()->getAlliance() != _alliance)
         {
-            _currentCatching=0;
-            if(_alliance == JEDI)
-                _planet->getClan(SITH)->removeRessource(_resourceTargeted);
-            else
-                _planet->getClan(JEDI)->removeRessource(_resourceTargeted);
+            if(_resourceTargeted->cathing() == CATCHING_TIME)//capture terminée
+            {
+                _resourceTargeted->setCurrentCatching(0);
+                if(_alliance == JEDI)
+                    _planet->getClan(SITH)->removeRessource(_resourceTargeted);
+                else
+                    _planet->getClan(JEDI)->removeRessource(_resourceTargeted);
 
-            _planet->getClan(_alliance)->addRessource(_resourceTargeted);
+                _planet->getClan(_alliance)->addRessource(_resourceTargeted);
+                _resourceTargeted->setClan(_planet->getClan(_alliance));
+                _resourceTargeted=NULL;
+                ret=true;
+            }
+        }
+        else
+        {
             _resourceTargeted=NULL;
-            ret=true;
         }
     }
 
     return ret;
 }
 
-void Pathfinder::addFollower(ClanMember* inW)
+void Pathfinder::addFollower(Warrior* inW)
 {
-    Warrior*  w =(Warrior*)inW;
-    w->setFollowing(this);
-    _followers.push_back(w);
+    inW->setFollowing(this);
+    _followers.push_back(inW);
 }
 
-void Pathfinder::removeFollower(ClanMember * inW)
+void Pathfinder::removeFollower(Warrior* inW)
 {
-    Warrior*  w =(Warrior*)inW;
-    w->setFollowing(NULL);
-    _followers.removeOne(w);
+    inW->setFollowing(NULL);
+    _followers.removeOne(inW);
 }
 
 void Pathfinder::removeFollowers()
 {
-    QList<ClanMember*>::iterator ite=_followers.begin();
-    Warrior * w;
+    QList<Warrior*>::iterator ite=_followers.begin();
     for(;ite!=_followers.end();++ite)
     {
-        w= (Warrior*)(*ite);
-        w->setFollowing(NULL);
+        (*ite)->setFollowing(NULL);
     }
 
     _followers.clear();

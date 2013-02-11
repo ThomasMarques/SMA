@@ -14,6 +14,7 @@ Resource::Resource(unsigned type, unsigned x, unsigned y, Clan *clan)
     _clan = clan;
     _viseJedi = false;
     _viseSith = false;
+    _currentCatching=0;
     _ressourcesProduite = 0;
 }
 

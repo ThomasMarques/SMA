@@ -26,6 +26,7 @@ class Resource
         Position _position;
         Clan *_clan;
         unsigned _ressourcesProduite; ///< Nombre de ressources produites depuis l'acquisition de la ressources.
+        unsigned _currentCatching;
 
         static int _NbResource;
 
@@ -40,6 +41,8 @@ class Resource
         void RAZRessourcesProduite() {_ressourcesProduite = 0;}
 
         void setClan(Clan *clan) {_clan = clan; _ressourcesProduite = 0;}
+        unsigned cathing(){ return ++_currentCatching; }
+        void setCurrentCatching(unsigned inC) { _currentCatching=inC;}
         void incRessourcesProduite() {++_ressourcesProduite;}
         static int GetNbResource() {return _NbResource;}
         static void InitNbResource() {_NbResource = 0;}

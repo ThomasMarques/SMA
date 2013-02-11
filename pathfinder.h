@@ -5,6 +5,8 @@
 #include <iostream>
 #include "clanmember.h"
 
+class Warrior;
+
 class Pathfinder : public ClanMember
 {
     private:
@@ -16,7 +18,7 @@ class Pathfinder : public ClanMember
         Resource * _resourceTargeted;
         unsigned _currentCatching;
 
-        QList<ClanMember*> _followers;
+        QList<Warrior*> _followers;
 
 
     public:
@@ -28,11 +30,11 @@ class Pathfinder : public ClanMember
         void setGonnaMerge(bool inGm) {_gonnaMerge=inGm;}
         Pathfinder* getTargetToMerged() {return _targetToMerged;}
         Resource * getResourceTargeted(){ return _resourceTargeted;}
-        QList<ClanMember*> getFollowers() { return _followers;}
+        QList<Warrior*> getFollowers() { return _followers;}
         void setResourceTargeted(Resource * inRes) { _resourceTargeted=inRes;}
         bool catchingRessource();
-        void addFollower(ClanMember* inW);
-        void removeFollower(ClanMember * inW);
+        void addFollower(Warrior* inW);
+        void removeFollower(Warrior * inW);
         void removeFollowers();
         void execute();
 };
