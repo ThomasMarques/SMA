@@ -114,7 +114,7 @@ void Planet::run()
 
 void Planet::naissance()
 {
-    // On génére un nombre entre 0,5 et 1,5.
+    // On gï¿½nï¿½re un nombre entre 0,5 et 1,5.
     double nb = genrand_real1()+0.5;
     unsigned rand;
     nb *= PROBA_NAISS;
@@ -158,6 +158,11 @@ ClanMember* Planet::getMember(Position xy, unsigned clan)
             return cm;
     }
     return NULL;
+}
+
+Position Planet::getCentreColonie(int alliance)
+{
+    return _clan[alliance]->getCentreColonie();
 }
 
 bool Planet::allResourceBusy()

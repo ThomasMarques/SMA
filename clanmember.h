@@ -58,6 +58,7 @@ class ClanMember
         ClanMember* getVise() {return _vise;}
         void setVise(ClanMember* inVise) { _vise=inVise;}
         QVector<ClanMember*> getShootersList() {return _shootersList;}
+        ClanMember* getFollowerWarrior();
 
         //Deplacement
         Position& getVector() {return _vector;}

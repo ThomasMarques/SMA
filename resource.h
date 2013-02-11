@@ -28,6 +28,7 @@ class Resource
         unsigned _ressourcesProduite; ///< Nombre de ressources produites depuis l'acquisition de la ressources.
 
         static int _NbResource;
+        static Position _compare;
 
     public:
         Resource(unsigned type, unsigned x, unsigned y,Clan *clan = NULL);
@@ -50,7 +51,8 @@ class Resource
         bool _viseJedi;
         bool _viseSith;
 
-
+        static void setCompare(Position centre) {_compare = centre;}
+        static Position getCompare() {return _compare;}
         static const unsigned probaRes[];
 };
 

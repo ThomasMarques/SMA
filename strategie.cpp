@@ -99,7 +99,7 @@ void StrategieAttaque::executeStrategie(Clan *clan)
         {
         case pathfinder://recherche la plus proche ressource enemie pour la capturer
             Pathfinder * mm=(Pathfinder*)m;
-            if(m->getCurrent()!= m->getObjectif())
+            if(m->getCurrent()!= m->getObjectif() || mm->getResourceTargeted() == NULL)
             {
                 if(m->getAlliance()== JEDI)
                     resourceTarget=clan->getPlanet()->plusProcheRessourceClan(m->getCurrent(),SITH);
@@ -108,16 +108,20 @@ void StrategieAttaque::executeStrategie(Clan *clan)
 
                 m->setObjectif(resourceTarget->getPosition());
                 mm->setResourceTargeted(resourceTarget);
+
+                Warrior* w=(Warrior*)m->getFollowerWarrior();
+                if(w != NULL)
+                    mm->addFollower(w);
             }
             else
             {
-                m->setVector(Position(0,0));
-                mm->catchingRessource();
+                if(m->getCurrent()==m->getObjectif())
+                {
+                    m->setVector(Position(0,0));
+                    mm->catchingRessource();
+                }
             }
             break;
         }
-
-        m->setObjectif(m->getCurrent());
-        m->setVector(Position(0,0));
     }
 }

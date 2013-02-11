@@ -40,11 +40,11 @@ class Clan
         long unsigned _argent;
         bool _resChanged;
         Position _moyenne;
+        int _nbRobot;
 
-        void calculCentreColonie();
-        float distanceToMoyenne(const Position& pos) {return sqrt((_moyenne.x-pos.x)*(_moyenne.x-pos.x)+(_moyenne.y-pos.y)*(_moyenne.y-pos.y));}
+        float distance(const Position &pos1, const Position &pos2);
 
-        // Les strat�gies que le clan peut adopter
+        // Les stratégies que le clan peut adopter
         static StrategieExploration _Se;
         static StrategieAttaque _Sa;
         static StrategieDefence _Sd;
@@ -74,6 +74,7 @@ class Clan
         Resource* plusProcheRessource(Position inPos);
         void incArgent(unsigned inc) {_argent += inc;}
         void decArgent(unsigned dec) {_argent -= dec;}
+        Position getCentreColonie();
 };
 
 #endif // CLAN_H

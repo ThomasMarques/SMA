@@ -51,6 +51,7 @@ class Planet : public QThread
         ClanMember* getMember(Position xy, unsigned clan);
         Resource* plusProcheRessourceClan(Position inPos,unsigned inClan);
         void changedRun() {_run = !_run;}
+        Position getCentreColonie(int alliance);
 
 
     signals :

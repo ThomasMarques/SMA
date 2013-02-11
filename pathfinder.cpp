@@ -1,5 +1,6 @@
 #include "pathfinder.h"
 #include "clan.h"
+#include "warrior.h"
 #include <math.h>
 #include <cfloat>
 #include <cstdlib>
@@ -39,20 +40,51 @@ Pathfinder::Pathfinder(Position current, Position objectif,Planet* inPlanet,Alli
 bool Pathfinder::catchingRessource()
 {
     bool ret=false;
-    if(++_currentCatching == CATCHING_TIME)//capture terminée
-    {
-        _currentCatching=0;
-        if(_alliance == JEDI)
-            _planet->getClan(SITH)->removeRessource(_resourceTargeted);
-        else
-            _planet->getClan(JEDI)->removeRessource(_resourceTargeted);
 
-        _planet->getClan(_alliance)->addRessource(_resourceTargeted);
-        _resourceTargeted=NULL;
-        ret=true;
+    if(_resourceTargeted != NULL)
+    {
+        if(++_currentCatching == CATCHING_TIME)//capture terminée
+        {
+            _currentCatching=0;
+            if(_alliance == JEDI)
+                _planet->getClan(SITH)->removeRessource(_resourceTargeted);
+            else
+                _planet->getClan(JEDI)->removeRessource(_resourceTargeted);
+
+            _planet->getClan(_alliance)->addRessource(_resourceTargeted);
+            _resourceTargeted=NULL;
+            ret=true;
+        }
     }
 
     return ret;
+}
+
+void Pathfinder::addFollower(ClanMember* inW)
+{
+    Warrior*  w =(Warrior*)inW;
+    w->setFollowing(this);
+    _followers.push_back(w);
+}
+
+void Pathfinder::removeFollower(ClanMember * inW)
+{
+    Warrior*  w =(Warrior*)inW;
+    w->setFollowing(NULL);
+    _followers.removeOne(w);
+}
+
+void Pathfinder::removeFollowers()
+{
+    QList<ClanMember*>::iterator ite=_followers.begin();
+    Warrior * w;
+    for(;ite!=_followers.end();++ite)
+    {
+        w= (Warrior*)(*ite);
+        w->setFollowing(NULL);
+    }
+
+    _followers.clear();
 }
 
 void Pathfinder::execute()
@@ -66,14 +98,18 @@ void Pathfinder::execute()
 
     if(!_promoted && _vector.x == 0 && _vector.y==0)
     {
-        //WAIT
+        movePosition();
+    }
+    else if(_planet->getClan(_alliance)->getStrategie()->getStrategieName() == "Attack")
+    {
+        moveVector();
     }
     else
     {
         if(!_promoted)
         {
             int x,y;
-            if(_trouve && _planet->getMap()[_objectif.x][_objectif.y]->res->getClan() == NULL)
+            if(_trouve && _planet->getMap()[_objectif.x][_objectif.y]->res != NULL && _planet->getMap()[_objectif.x][_objectif.y]->res->getClan() == NULL)
             {
                 if(_objectif.x == _current.x && _objectif.y == _current.y)
                 {

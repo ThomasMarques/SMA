@@ -7,6 +7,7 @@ Warrior::Warrior(Position current, Position objectif,Planet * inPlanet,Alliance 
     _type=warrior;
     _nbLife=WARRIOR_LIFE;
     _shotValue=WARRIOR_SHOT;
+    _following=NULL;
 }
 
 void Warrior::execute()
@@ -17,6 +18,12 @@ void Warrior::execute()
      tmpMap[_current.x][_current.y]->sith.nbGuerrier--;
     else
      tmpMap[_current.x][_current.y]->jedi.nbGuerrier--;
+
+    if(_following != NULL)
+    {
+        _objectif=_following->getCurrent();
+        _vector=Position(0,0);
+    }
 
     if(_vector.x == 0 && _vector.y == 0)
         movePosition();
@@ -33,7 +40,7 @@ void Warrior::execute()
 
 void Warrior::fight()
 {
-    getNearestVise(1);//portée de 0
+    getNearestVise(1);//portée de 1
     if(_vise)
     {
         _vise->receiveShot(WARRIOR_SHOT);
