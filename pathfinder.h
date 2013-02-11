@@ -16,6 +16,8 @@ class Pathfinder : public ClanMember
         Resource * _resourceTargeted;
         unsigned _currentCatching;
 
+        QList<ClanMember*> _followers;
+
 
     public:
         Pathfinder(Position current, Position objectif,Planet* inPlanet,Alliance inAlliance);
@@ -26,8 +28,12 @@ class Pathfinder : public ClanMember
         void setGonnaMerge(bool inGm) {_gonnaMerge=inGm;}
         Pathfinder* getTargetToMerged() {return _targetToMerged;}
         Resource * getResourceTargeted(){ return _resourceTargeted;}
+        QList<ClanMember*> getFollowers() { return _followers;}
         void setResourceTargeted(Resource * inRes) { _resourceTargeted=inRes;}
         bool catchingRessource();
+        void addFollower(ClanMember* inW);
+        void removeFollower(ClanMember * inW);
+        void removeFollowers();
         void execute();
 };
 

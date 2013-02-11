@@ -1,8 +1,8 @@
 #include "clanmember.h"
-#include "warrior.h"
 #include "pathfinder.h"
 #include "robot.h"
 #include "clan.h"
+#include "warrior.h"
 
 unsigned ClanMember::_Count = 0;
 
@@ -166,5 +166,27 @@ void ClanMember::getNearestVise(int view)
     {
         _vise = NULL;
     }
+}
+
+//renvoie un Warrior disponible pour suivre un pathfinder
+ClanMember *ClanMember::getFollowerWarrior()
+{
+    ClanMember* ret=NULL;
+    if(_planet->getClan(_alliance)->getNbWarrior() > 0)
+    {
+        QVector<ClanMember*>::iterator ite= _planet->getClan(_alliance)->getMembers().begin();
+        for(;ret==NULL && ite!= _planet->getClan(_alliance)->getMembers().end();++ite)
+        {
+            if((*ite)->getType() == warrior)
+            {
+                Warrior* w=(Warrior*)(*ite);
+                if(w->getFollowing() == NULL)
+                {
+                    ret=w;
+                }
+            }
+        }
+    }
+    return ret;
 }
 

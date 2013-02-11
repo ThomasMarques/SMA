@@ -154,7 +154,7 @@ void Clan::execute()
     int x,y;
 
     /// MAJ de la stratégie et des objectifs de chacun
-    if(!_planet->allResourceBusy())
+    if(!_planet->allResourceBusy() && *(_planet->getT()) < 80)
         _strategie = &_Se;
     else
     {
@@ -168,7 +168,7 @@ void Clan::execute()
         }
 
         //les clans sont en mode défense un temps minium
-        if( *(_planet->getT()) < 60)
+        if( *(_planet->getT()) < 150)
             _strategie = &_Sd;
         else
             _strategie= &_Sa;
@@ -245,12 +245,12 @@ void Clan::execute()
         Commercial::getInstance()->sellResources(this,res);
     }
     /// On achete autant de robot que possibles.
-    Position p;
+   /* Position p;
     do
     {
         p = Position(genrand_int32()%HAUTEUR,genrand_int32()%LARGEUR);
     }
-    while(Commercial::getInstance()->achatRobot(this,p));
+    while(Commercial::getInstance()->achatRobot(this,p));*/
 
     std::cout << "Argent du clan : " << _argent << std::endl;
 }
