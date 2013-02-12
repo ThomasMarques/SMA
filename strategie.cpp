@@ -32,14 +32,14 @@ void StrategieDefence::executeStrategie(Clan *clan)
             {
             case pathfinder:
                 mPath=(Pathfinder*)m;
-                if(!mPath->isPromoted())
+                if(!mPath->isPromoted() || !mPath->isGoingToMerge())
                 {
                     // Pour les pathfinders restants il couvre la map de manière aléatoire
                     if(mPath->getVector() == Position(0,0))
                     {
-                        Position tmp((genrand_int32()%8)-5,(genrand_int32()%8)-5);
-                        if(tmp.x >= -1) tmp.x+=3;
-                        if(tmp.y >= -1) tmp.y+=3;
+                        Position tmp((genrand_int32()%10)-5,(genrand_int32()%10)-5);
+                        if(tmp.x >= 0) tmp.x+=1;
+                        if(tmp.y >= 0) tmp.y+=1;
                         mPath->setVector(tmp);
                     }
                 }
@@ -135,7 +135,7 @@ void StrategieAttaque::executeStrategie(Clan *clan)
                 mm->setResourceTargeted(resourceTarget);
 
                 Warrior* w=(Warrior*)m->getFollowerWarrior();
-                if(w != NULL && mm->getFollowers().count()/(float)clan->getMembers().count() <= 0.05 )//5% du clan max
+                if(w != NULL && mm->getFollowers().count()/(float)clan->getMembers().count() <= 0.15 )//5% du clan max
                     mm->addFollower(w);
             }
             else

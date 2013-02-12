@@ -103,6 +103,12 @@ void Pathfinder::execute()
     if(!_promoted && _vector.x == 0 && _vector.y==0)
     {
         movePosition();
+        if(_current == _objectif)
+        {
+            _vector= Position((genrand_int32()%10)-5,(genrand_int32()%10)-5);
+            if(_vector.x >= 0) _vector.x+=1;
+            if(_vector.y >= 0) _vector.y+=1;
+        }
     }
     else if(_planet->getClan(_alliance)->getStrategie()->getStrategieName() == "Attack")
     {
