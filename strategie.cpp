@@ -1,9 +1,8 @@
 #include "strategie.h"
-#include "resource.h"
-#include "clan.h"
 #include "pathfinder.h"
 #include "warrior.h"
 #include "MersenneTwister.h"
+#include "clan.h"
 
 void StrategieExploration::executeStrategie(Clan *clan)
 {

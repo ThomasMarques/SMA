@@ -4,7 +4,7 @@
 
 Commercial* Commercial::instance = NULL;
 unsigned Commercial::prixResource[4] = {500,100,50,20}; ///< Prix d'achat des différentes ressources par le marchant.
-const unsigned Commercial::prixRobot = 30000; ///< Prix de vente d'un robot.
+const unsigned Commercial::prixRobot = 70000; ///< Prix de vente d'un robot.
 
 Commercial::Commercial()
 {

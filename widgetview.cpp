@@ -20,7 +20,7 @@ WidgetView::~WidgetView()
 }
 
 
-void WidgetView::paintEvent(QPaintEvent *p)
+void WidgetView::paintEvent(QPaintEvent *)
 {
     std::stringstream ss;
     unsigned hauteur = (this->height()-20)/HAUTEUR;
@@ -32,7 +32,7 @@ void WidgetView::paintEvent(QPaintEvent *p)
     painter.setPen(pen);
 
 
-    ss << "Temps" << *_time;
+    ss << "Temps " << *_time;
     painter.drawText(this->width()/2-50,0,250,15,0,QString(ss.str().c_str()));
     if(*_time > 0)
     {
@@ -106,6 +106,9 @@ void WidgetView::paintEvent(QPaintEvent *p)
                 }
                 else
                 {
+                    painter.setPen(Qt::white);
+                    painter.drawEllipse(j*largeur+k*6+3,i*hauteur+17,1,1);
+                    painter.setPen(Qt::cyan);
                     painter.drawEllipse(j*largeur+k*6+1,i*hauteur+15,5,5);
                     painter.drawEllipse(j*largeur+k*6+2,i*hauteur+16,3,3);
                 }
@@ -124,6 +127,9 @@ void WidgetView::paintEvent(QPaintEvent *p)
                 }
                 else
                 {
+                    painter.setPen(Qt::white);
+                    painter.drawEllipse(j*largeur+k*6+3,i*hauteur+23,1,1);
+                    painter.setPen(Qt::red);
                     painter.drawEllipse(j*largeur+k*6+1,i*hauteur+21,5,5);
                     painter.drawEllipse(j*largeur+k*6+2,i*hauteur+22,3,3);
                 }
@@ -152,8 +158,6 @@ void WidgetView::paintEvent(QPaintEvent *p)
 
     painter.setPen(QPen(Qt::red,2,Qt::DashLine));
 
-    bool t =false;
-
     foreach(ClanMember *cm, _clan[1]->getMembers())
     {
         if(cm->getType() == robot)
@@ -164,7 +168,6 @@ void WidgetView::paintEvent(QPaintEvent *p)
                 painter.drawLine(cm->getCurrent().y*largeur+3,cm->getCurrent().x*hauteur+22,
                                          vise->getCurrent().y*largeur+3,vise->getCurrent().x*hauteur+17);
                 vise->receiveShot(cm->getShotValue());
-                t = true;
             }
         }
     }
@@ -172,8 +175,6 @@ void WidgetView::paintEvent(QPaintEvent *p)
     painter.setPen(Qt::white);
     painter.drawRect(0,15,largeur*LARGEUR,hauteur*HAUTEUR);
     painter.end();
-    if(t)
-        int i = 0;
 }
 
 void WidgetView::modelChanged()

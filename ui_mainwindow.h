@@ -34,6 +34,7 @@ public:
     QWidget *centralWidget,*widgetTranspa,*widgetFond;
     QPushButton *button_init;
     QPushButton *button_lancer;
+    QPushButton *button_pause;
     WidgetView *widget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -61,6 +62,9 @@ public:
         button_lancer = new QPushButton(centralWidget);
         button_lancer->setObjectName(QString::fromUtf8("button_lancer"));
         button_lancer->setGeometry(QRect(750, 520, 141, 23));
+        button_pause = new QPushButton(centralWidget);
+        button_pause->setObjectName(QString::fromUtf8("button_pause"));
+        button_pause->setGeometry(QRect(750, 520, 141, 23));
         widgetTranspa = new QWidget(centralWidget);
         widgetTranspa->setObjectName(QString::fromUtf8("widgetTranspa"));
         widgetTranspa->setStyleSheet("background-color: rgba( 0, 0, 0, 0% );");
@@ -76,6 +80,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
         button_init->setText(QApplication::translate("MainWindow", "Initialiser la simulation", 0, QApplication::UnicodeUTF8));
         button_lancer->setText(QApplication::translate("MainWindow", "Lancer la simulation", 0, QApplication::UnicodeUTF8));
+        button_pause->setText(QApplication::translate("MainWindow", "Pause / Reprendre", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

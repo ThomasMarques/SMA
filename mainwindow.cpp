@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _zoom = 1;
 
     ui->setupUi(this);
+    ui->button_pause->setDisabled(true);
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +27,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
     ui->widgetFond->setGeometry(0,0,this->width(),this->height());
     ui->button_init->setGeometry(QRect(80, this->height()-30, 140, 23));
     ui->button_lancer->setGeometry(QRect(this->width()-250, this->height()-30, 140, 23));
+    ui->button_pause->setGeometry(QRect(this->width()/2-40, this->height()-30, 140, 23));
     ui->labelgauche->setGeometry(0,0,405,402);
     ui->labeldroit->setGeometry(this->width()-378,0,378,384);
     if(ui->widget)
@@ -54,12 +56,14 @@ void MainWindow::on_button_init_clicked()
         ui->widgetTranspa->setStyleSheet("background-color: rgba( 0, 0, 0, 0% );");
     }
     ui->button_lancer->setDisabled(false);
+    ui->button_pause->setDisabled(true);
     Resource::InitNbResource();
 }
 
 void MainWindow::on_button_lancer_clicked()
 {
     unsigned w,h;
+    ui->button_pause->setDisabled(false);
     _planet = new Planet();
     ui->widget = new WidgetView(_planet->getMap(),_planet->getT(),_planet->getMapClan(),_planet->getFightingMap(),_planet->getClans(),ui->centralWidget);
     ui->widget->setObjectName(QString::fromUtf8("widget"));
@@ -74,4 +78,7 @@ void MainWindow::on_button_lancer_clicked()
     _planet->start();
 }
 
-
+void MainWindow::on_button_pause_clicked()
+{
+    _planet->changedRun();
+}

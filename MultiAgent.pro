@@ -4,10 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui declarative
 
 TARGET = MultiAgent
-TEMPLATE = app
+
+TEMPLATE += app
+
+CONFIG += qt gui
 
 SOURCES += \
     widgetview.cpp \
@@ -27,7 +30,6 @@ SOURCES += \
 HEADERS  += \
     widgetview.h \
     warrior.h \
-    ui_mainwindow.h \
     structure.h \
     strategie.h \
     robot.h \

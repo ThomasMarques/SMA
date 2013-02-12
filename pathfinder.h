@@ -1,9 +1,8 @@
 #ifndef PATHFINDER_H
 #define PATHFINDER_H
 
-#include <QVector>
-#include <iostream>
 #include "clanmember.h"
+#include <iostream>
 
 class Warrior;
 

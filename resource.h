@@ -29,13 +29,14 @@ class Resource
         unsigned _currentCatching;
 
         static int _NbResource;
+        static Position _compare;
 
     public:
         Resource(unsigned type, unsigned x, unsigned y,Clan *clan = NULL);
 
         unsigned getType() {return _type;}
         Qt::GlobalColor getColor() {return color[_type];}
-        Position getPosition() {return _position;}
+        Position getPosition() const {return _position;}
         Clan* getClan() {return _clan;}
         unsigned getRessourcesProduite() {return _ressourcesProduite;}
         void RAZRessourcesProduite() {_ressourcesProduite = 0;}
@@ -53,7 +54,8 @@ class Resource
         bool _viseJedi;
         bool _viseSith;
 
-
+        static void setCompare(Position centre) {_compare = centre;}
+        static Position getCompare() {return _compare;}
         static const unsigned probaRes[];
 };
 

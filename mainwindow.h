@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "planet.h"
+#include "widgetview.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +20,7 @@ public:
 public slots :
     void on_button_init_clicked();
     void on_button_lancer_clicked();
+    void on_button_pause_clicked();
     
 private:
     Ui::MainWindow *ui;

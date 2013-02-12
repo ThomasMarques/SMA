@@ -13,6 +13,7 @@ Planet::Planet(QObject *parent) : QThread(parent)
     init_ressource();
     _clan[0]->init();
     _clan[1]->init();
+    _run = true;
 }
 
 Planet::~Planet()
@@ -90,25 +91,30 @@ bool ***Planet::getMapClan()
 void Planet::run()
 {
     _running = true;
-    for(_time = 0 ; _running ; ++_time)
+    for(_time = 0 ; _running ; )
     {
         QThread::msleep(200);
 
-        /// Pour voir la map parcouru au total commenter les 2 lignes
-        _clan[0]->initMapVisitee();
-        _clan[1]->initMapVisitee();
-        _clan[0]->execute();
-        _clan[1]->execute();
+        if(_run)
+        {
+            /// Pour voir la map parcouru au total commenter les 2 lignes
+            _clan[0]->initMapVisitee();
+            _clan[1]->initMapVisitee();
+            _clan[0]->execute();
+            _clan[1]->execute();
 
-        if(_time%20 == 19)
-            naissance();
-        emit modelChanged();
+            if(_time%20 == 19)
+                naissance();
+            emit modelChanged();
+
+            ++_time;
+        }
     }
 }
 
 void Planet::naissance()
 {
-    // On génére un nombre entre 0,5 et 1,5.
+    // On gï¿½nï¿½re un nombre entre 0,5 et 1,5.
     double nb = genrand_real1()+0.5;
     unsigned rand;
     nb *= PROBA_NAISS;
@@ -152,6 +158,11 @@ ClanMember* Planet::getMember(Position xy, unsigned clan)
             return cm;
     }
     return NULL;
+}
+
+Position Planet::getCentreColonie(int alliance)
+{
+    return _clan[alliance]->getCentreColonie();
 }
 
 bool Planet::allResourceBusy()

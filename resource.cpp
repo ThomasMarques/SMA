@@ -4,6 +4,7 @@
 Qt::GlobalColor Resource::color[NB_RESSOURSES] = {Qt::cyan,Qt::yellow,Qt::gray,Qt::red};
 const unsigned Resource::probaRes[NB_RESSOURSES] = {10,30,60,100};
 int Resource::_NbResource = 0;
+Position Resource::_compare = Position();
 
 Resource::Resource(unsigned type, unsigned x, unsigned y, Clan *clan)
 {

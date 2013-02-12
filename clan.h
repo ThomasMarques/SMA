@@ -1,11 +1,10 @@
 #ifndef CLAN_H
 #define CLAN_H
 
-#include <QVector>
-#include "resource.h"
 #include "planet.h"
 #include "clanmember.h"
 #include "strategie.h"
+#include <math.h>
 
 using namespace std;
 
@@ -39,8 +38,13 @@ class Clan
         unsigned _alliance;
         bool _promotedPhase;
         long unsigned _argent;
+        bool _resChanged;
+        Position _moyenne;
+        int _nbRobot;
 
-        // Les stratégies que le clan peut adopter
+        float distance(const Position &pos1, const Position &pos2);
+
+        // Les stratÃ©gies que le clan peut adopter
         static StrategieExploration _Se;
         static StrategieAttaque _Sa;
         static StrategieDefence _Sd;
@@ -50,7 +54,7 @@ class Clan
         Clan(Position posDepart, Planet *planete, unsigned alliance);
         ~Clan();
         void init();
-        void addRessource(Resource *resource) {resource->setClan(this);_resources.push_back(resource);}
+        void addRessource(Resource *resource) {resource->setClan(this);_resources.push_back(resource); _resChanged = true;}
         void removeRessource(Resource *ressource);
         void addMember(Position current, Position objectif,Member_type type,Alliance inAlliance);
         void removeMember(unsigned inId);
@@ -70,6 +74,7 @@ class Clan
         Resource* plusProcheRessource(Position inPos);
         void incArgent(unsigned inc) {_argent += inc;}
         void decArgent(unsigned dec) {_argent -= dec;}
+        Position getCentreColonie();
 };
 
 #endif // CLAN_H
